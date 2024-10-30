@@ -30,6 +30,8 @@ module "vpn" {
   vpc_id                 = data.terraform_remote_state.vpc.outputs.vpc_id
   vpc_cidr_block         = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
   subnet_ids             = data.terraform_remote_state.vpc.outputs.public_subnet_ids
+  private_route_table_id = data.terraform_remote_state.vpc.outputs.private_route_table_id
+  gateway_id             = data.terraform_remote_state.vpc.outputs.gateway_id
   server_certificate_arn = "arn:aws:acm:eu-west-2:058264075563:certificate/b5531e3b-1266-4cd9-bc02-98b96d84415b"
   client_certificate_arn = "arn:aws:acm:eu-west-2:058264075563:certificate/c5546b25-73a1-4aa4-a146-65b51d92584c"
   client_cidr_block      = "10.11.0.0/22"

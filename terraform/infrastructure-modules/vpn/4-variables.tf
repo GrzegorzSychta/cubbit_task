@@ -62,3 +62,11 @@ variable "allowed_ips" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
+
+variable "private_route_table_id" {
+  description = "value"
+}
+
+variable "gateway_id" {
+  description = "value"
+}
