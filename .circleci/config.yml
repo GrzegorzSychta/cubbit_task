@@ -1,0 +1,17 @@
+version: 2.1
+setup: true
+orbs:
+  path-filtering: circleci/path-filtering@1.0.0
+
+workflows:
+  version: 2
+  dispatch:
+    jobs:
+      - path-filtering/filter:
+          name: workflow-dispatch
+          mapping: |
+            src/dev/go-hello-app/.* environment "dev"
+            src/stage/go-hello-app/.* environment "stage"
+            src/prod/go-hello-app/.* environment "prod"
+          base-revision: main
+          config-path: .circleci/workflows.yml

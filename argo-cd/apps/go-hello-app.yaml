@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: go-hello-app-appset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+            namespace: dev
+            valuesFile: values/dev-values.yaml
+          - env: stage
+            namespace: stage
+            valuesFile: values/stage-values.yaml
+          - env: prod
+            namespace: prod
+            valuesFile: values/prod-values.yaml
+  template:
+    metadata:
+      name: go-hello-app-{{ env }}
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/GrzegorzSychta/cubbit.git
+        targetRevision: main
+        path: helm-charts/go-hello-app
+        helm:
+          valueFiles:
+            - '{{ valuesFile }}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ namespace }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+# comment

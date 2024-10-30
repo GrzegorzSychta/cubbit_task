@@ -1,0 +1,8 @@
+replicaCount: 1
+image: grg1337/cubbit:go-hello-app-stage-20241030131009
+imagePullSecrets: regcred
+
+service:
+  type: NodePort
+  port: 8080
+  nodePort: 30082
